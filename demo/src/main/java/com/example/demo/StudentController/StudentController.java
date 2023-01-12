@@ -1,12 +1,14 @@
 package com.example.demo.StudentController;
 
 import com.example.demo.Repository.StudentRepository;
+import com.example.demo.Service.StudentService;
 import com.example.demo.StudentEntity.StudentEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
 
 import java.util.List;
 
@@ -15,31 +17,25 @@ import java.util.List;
 public class StudentController {
 
     @Autowired
-    private StudentRepository studentRepository;
+    private StudentService studentService;
 
     @PostMapping("/student")
     public @ResponseBody String addStudents (@RequestParam String studentFname,
                                              @RequestParam String studentLname,
                                              @RequestParam String studentEmail,
                                              @RequestParam String studentCourse){
-        StudentEntity studentEntity = new StudentEntity();
 
-        studentEntity.setStudentFname(studentFname);
-        studentEntity.setStudentLname(studentLname);
-        studentEntity.setStudentEmail(studentEmail);
-        studentEntity.setStudentCourse(studentCourse);
-        studentRepository.save(studentEntity);
-        return "Details got saved!";
+        return studentService.createStudent(studentFname, studentLname, studentEmail, studentCourse);
     }
 
     @GetMapping("/students")
     public @ResponseBody Iterable<StudentEntity> getAllStudent(){
-        return studentRepository.findAll();
+        return studentService.getAllStudent();
     }
 
     @GetMapping("/studentid")
     public ResponseEntity<List<StudentEntity>> getById (@RequestParam int id){
-        return new ResponseEntity<>(studentRepository.findByid(id), HttpStatus.OK);
+        return studentService.getById(id);
     }
 
 
