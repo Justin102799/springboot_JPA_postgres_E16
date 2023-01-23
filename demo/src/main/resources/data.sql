@@ -1,1 +1,1 @@
-CREATE DATABASE schooltable;
+CREATE DATABASE schooltable
