@@ -17,9 +17,7 @@ public class StudentEntity {
         return id;
     }
 
-//    public void setId(int id) {
-//        this.id = id;
-//    }
+
 
     public String getStudentFname() {
         return studentFname;
